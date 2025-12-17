@@ -9,11 +9,41 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model user{
-  id String @id @default(cuid()) @map("_id")
-  name String
-  email String 
-  image String
+enum UserRole {
+  ADMIN
+  USER
+  PREMIUM_USER
+}
+
+model User {
+  id        String    @id @default(cuid()) @map("_id")
+  name      String?
+  email     String    @unique
+  image     String?
+  accounts  Account[]
+  role      UserRole  @default(USER)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Account {
+  id                String  @id @default(cuid()) @map("_id")
+  userId            String  @map("_user_id")
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+ 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+ 
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+ 
+  @@unique([provider, providerAccountId])
 }
