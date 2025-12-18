@@ -4,13 +4,13 @@ import React from 'react'
 
 const SignInPage = () => {
   return (
-    <>
-        <Image src={"/login.svg"} alt="Login-Image" height={300} 
+    <div className='space-y-6 flex flex-col items-center justify-center'>
+        <Image src={"/logo.png"} alt="NAAVIS-logo" height={300} 
         width={300}
         className='m-6 object-cover'
         />
         <SignInFormClient/>
-    </>
+    </div>
   )
 }
 
