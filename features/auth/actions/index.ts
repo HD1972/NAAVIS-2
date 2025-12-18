@@ -13,28 +13,25 @@ export const getUserById = async (id:string)=>{
         return user
     } catch (error) {
         console.log(error)
-        return null;
+        return null
     }
 }
 
 export const getAccountByUserId = async (userId:string)=>{
     try {
         const account = await db.account.findFirst({
-            where:{userId},
-        });
-        return account;
+            where:{
+                userId
+            }
+        })
+        return account
     } catch (error) {
-        return null;
+        console.log(error)
+        return null
     }
 }
 
 export const currentUser = async()=>{
-    const user = await auth();
+    const user = await auth()
     return user?.user;
 }
-    
-    
-
-
-
-
